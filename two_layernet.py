@@ -137,10 +137,10 @@ class TwoLayerNet(object):
         # Implement the loss for the softmax output layer
         
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-        
-        
-        
-        pass
+
+        N = scores.shape[0]
+        loss = (1/N) * np.sum(-np.log(scores)) + \
+               reg * (np.linalg.norm(W1)**2 + np.linalg.norm(W2)**2)
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
