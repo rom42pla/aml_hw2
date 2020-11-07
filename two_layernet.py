@@ -134,11 +134,7 @@ class TwoLayerNet(object):
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         N, C = scores.shape
-        guess = np.zeros_like(y, dtype=scores.dtype)
-
-        # todo TOGLIERE IL FOR!!!!!!!!!!!
-        for i, label in enumerate(y):
-            guess[i] = scores[i, label]
+        guess = scores[np.arange(scores.shape[0]), y]
 
         loss = (1 / N) * np.sum(-np.log(guess)) + \
                reg * (np.linalg.norm(W1) ** 2 + np.linalg.norm(W2) ** 2)
