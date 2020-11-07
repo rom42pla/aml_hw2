@@ -96,23 +96,13 @@ class TwoLayerNet(object):
             result = np.exp(M).T / np.sum(np.exp(M), axis=1)
             return result
 
-        # print(f"Shape of W1: {W1.shape}\tShape of b1: {b1.shape}")
         a1 = X
-        # print(f"Shape of a1: {a1.shape}")
         z2 = np.dot(a1, W1) + b1
-        # print(f"Shape of z2: {z2.shape}")
         a2 = relu(z2)
-        # print(f"Shape of a2: {a2.shape}")
-        # print(f"Shape of W2: {W2.shape}\tShape of b1: {b2.shape}")
         z3 = np.dot(a2, W2) + b2
-        # print(f"Shape of z3: {z3.shape}")
         a3 = softmax(z3)
-        # print(f"Shape of a3: {a3.shape}")
 
         scores = a3.T
-        # print(f"Shape of scores: {scores}")
-        # raise Exception
-
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         # If the targets are not given then jump out, we're done
@@ -132,8 +122,8 @@ class TwoLayerNet(object):
         # Implement the loss for the softmax output layer
 
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-
         N, C = scores.shape
+        # guess is the array of values of the correct class in our scores
         guess = scores[np.arange(scores.shape[0]), y]
 
         loss = (1 / N) * np.sum(-np.log(guess)) + \
@@ -150,6 +140,17 @@ class TwoLayerNet(object):
         ##############################################################################
 
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+        kronecker_deltas = np.arange(N)
+        kronecker_deltas[kronecker_deltas != y] = 0
+
+        # todo levare il for
+        for i, n in enumerate(kronecker_deltas):
+            scores[i] -= n
+
+        grads['W2'] = np.sum((1 / N) * np.dot(a2.T, scores)) \
+                      + 2 * reg * W2
+        grads['W1'] = np.sum((1 / N) * np.dot(a2.T, scores)) \
+                      + 2 * reg * W1
 
         pass
 
