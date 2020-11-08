@@ -126,8 +126,12 @@ class TwoLayerNet(object):
         # guess is the array of values of the correct class in our scores
         guess = scores[np.arange(scores.shape[0]), y]
 
-        loss = (1 / N) * np.sum(-np.log(guess)) + \
-               reg * (np.linalg.norm(W1) ** 2 + np.linalg.norm(W2) ** 2)
+        def J(g):
+            return (1 / N) * np.sum(-np.log(g)) + \
+                   reg * (np.linalg.norm(W1) ** 2 + np.linalg.norm(W2) ** 2)
+
+        loss = J(guess)
+
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         # Backward pass: compute gradients
@@ -140,20 +144,24 @@ class TwoLayerNet(object):
         ##############################################################################
 
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-        kronecker_deltas = np.arange(N)
-        kronecker_deltas[kronecker_deltas != y] = 0
+        kronecker_deltas = np.zeros(shape=(N, C))
 
-        # todo levare il for
-        for i, n in enumerate(kronecker_deltas):
-            scores[i] -= n
+        for i, pred in enumerate(y):
+            kronecker_deltas[i][pred] = 1
 
-        grads['W2'] = np.sum((1 / N) * np.dot(a2.T, scores)) \
-                      + 2 * reg * W2
-        grads['W1'] = np.sum((1 / N) * np.dot(a2.T, scores)) \
-                      + 2 * reg * W1
+        scores = (1 / N) * (scores - kronecker_deltas)
 
-        pass
+        def relu_deriv(M):
+            result = 1 * (M >= 0)
+            return result
 
+        grads['W1'] = np.dot((np.dot(scores, W2.T) * relu_deriv(z2)).T, a1).T \
+                      + (2 * reg * W1)
+        grads['W2'] = np.dot(scores.T, a2).T \
+                      + (2 * reg * W2)
+
+        grads['b1'] = np.sum((np.dot(scores, W2.T) * relu_deriv(z2)), axis=0)
+        grads['b2'] = np.sum(scores, axis=0)
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         return loss, grads

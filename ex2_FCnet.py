@@ -1,22 +1,25 @@
-#-----------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------
 # Implementing a Neural Network In this exercise we will develop a neural
 # network with fully-connected layers to perform classification, and test it
 # out on the CIFAR-10 dataset.  A bit of setup
-#-----------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------
 import numpy as np
 import matplotlib.pyplot as plt
 from two_layernet import TwoLayerNet
 from gradient_check import eval_numerical_gradient
 from data_utils import get_CIFAR10_data
 from vis_utils import visualize_grid
-#-------------------------- * End of setup *---------------------------------------
 
-#-------------------------------------------------------
+
+# -------------------------- * End of setup *---------------------------------------
+
+# -------------------------------------------------------
 # Some helper functions
 # ------------------------------------------------------
 def rel_error(x, y):
     """ returns relative error """
     return np.max(np.abs(x - y) / (np.maximum(1e-8, np.abs(x) + np.abs(y))))
+
 
 def show_net_weights(net):
     W1 = net.params['W1']
@@ -25,19 +28,19 @@ def show_net_weights(net):
     plt.gca().axis('off')
     plt.show()
 
-#-------------------------- * End of helper functions *--------------------------------
+
+# -------------------------- * End of helper functions *--------------------------------
 
 
-
-#======================================================================================
+# ======================================================================================
 # Q1: Implementing forward pass and the loss functions
-#======================================================================================
+# ======================================================================================
 # We will use the class `TwoLayerNet` in the file `two_layernet.py` to
 # represent instances of our network.  The network parameters are stored in the
 # instance variable `self.params` where keys are string parameter names and
 # values are numpy arrays.  Below, we initialize toy data and a toy model that
 # we will use to develop your implementation.
-#--------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
 
 # Create a small net and some toy data to check your implementations.
 # Note that we set the random seed for repeatable experiments.
@@ -47,9 +50,11 @@ hidden_size = 10
 num_classes = 3
 num_inputs = 5
 
+
 def init_toy_model():
     np.random.seed(0)
     return TwoLayerNet(input_size, hidden_size, num_classes, std=1e-1)
+
 
 def init_toy_data():
     np.random.seed(1)
@@ -57,9 +62,9 @@ def init_toy_data():
     y = np.array([0, 1, 2, 2, 1])
     return X, y
 
+
 net = init_toy_model()
 X, y = init_toy_data()
-
 
 # Forward pass: compute scores. Open the file `two_layernet.py` and look at the
 # method `TwoLayerNet.loss`. This function takes the
@@ -75,18 +80,17 @@ print(scores)
 print()
 print('correct scores:')
 correct_scores = np.asarray([
- [0.36446210, 0.22911264, 0.40642526],
- [0.47590629, 0.17217039, 0.35192332],
- [0.43035767, 0.26164229, 0.30800004],
- [0.41583127, 0.29832280, 0.28584593],
- [0.36328815, 0.32279939, 0.31391246]])
+    [0.36446210, 0.22911264, 0.40642526],
+    [0.47590629, 0.17217039, 0.35192332],
+    [0.43035767, 0.26164229, 0.30800004],
+    [0.41583127, 0.29832280, 0.28584593],
+    [0.36328815, 0.32279939, 0.31391246]])
 print(correct_scores)
 print()
 
 # The difference should be very small. We get < 1e-7
 print('Difference between your scores and correct scores:')
 print(np.sum(np.abs(scores - correct_scores)))
-
 
 # Forward pass: compute loss. In the same function, implement the second part
 # that computes the data and regularization loss.
@@ -97,11 +101,9 @@ correct_loss = 1.30378789133
 print('Difference between your loss and correct loss:')
 print(np.sum(np.abs(loss - correct_loss)))
 
-
-
-#======================================================================================
+# ======================================================================================
 # Q2:Computing gradients using back propogation
-#======================================================================================
+# ======================================================================================
 # Implement the rest of the function. This will compute the gradient of the
 # loss with respect to the variables `W1`, `b1`, `W2`, and `b2`. Now that you
 # have a correctly implemented forward pass, you can debug your backward pass
@@ -119,11 +121,9 @@ for param_name in grads:
     param_grad_num = eval_numerical_gradient(f, net.params[param_name], verbose=False)
     print('%s max relative error: %e' % (param_name, rel_error(param_grad_num, grads[param_name])))
 
-
-
-#======================================================================================
+# ======================================================================================
 # Q3: Train the network using gradient descent
-#======================================================================================
+# ======================================================================================
 
 # To train the network we will use stochastic gradient
 # descent (SGD). Look at the function `TwoLayerNet.train` and fill in the
@@ -137,8 +137,8 @@ for param_name in grads:
 
 net = init_toy_model()
 stats = net.train(X, y, X, y,
-            learning_rate=1e-1, reg=5e-6,
-            num_iters=100, verbose=True)
+                  learning_rate=1e-1, reg=5e-6,
+                  num_iters=100, verbose=True)
 
 print('Final training loss: ', stats['loss_history'][-1])
 
@@ -149,7 +149,6 @@ plt.xlabel('iteration')
 plt.ylabel('training loss')
 plt.title('Training Loss history')
 plt.show()
-
 
 # Load the data
 # Now that you have implemented a two-layer network that passes
@@ -167,10 +166,9 @@ print('Test labels shape: ', y_test.shape)
 
 # Visualize some images to get a feel for the data
 plt.figure(2)
-plt.imshow(visualize_grid(X_train[:100, :].reshape(100, 32,32, 3), padding=3).astype('uint8'))
+plt.imshow(visualize_grid(X_train[:100, :].reshape(100, 32, 32, 3), padding=3).astype('uint8'))
 plt.gca().axis('off')
 plt.show()
-
 
 # Train a network
 # To train our network we will use SGD. In addition, we will
@@ -184,14 +182,13 @@ num_classes = 10
 net = TwoLayerNet(input_size, hidden_size, num_classes)
 # Train the network
 stats = net.train(X_train, y_train, X_val, y_val,
-            num_iters=1000, batch_size=200,
-            learning_rate=1e-4, learning_rate_decay=0.95,
-            reg=0.25, verbose=True)
+                  num_iters=1000, batch_size=200,
+                  learning_rate=1e-4, learning_rate_decay=0.95,
+                  reg=0.25, verbose=True)
 
 # Predict on the validation set
 val_acc = (net.predict(X_val) == y_val).mean()
 print('Validation accuracy: ', val_acc)
-
 
 # Debug the training
 # With the default parameters we provided above, you should get a validation
@@ -223,11 +220,9 @@ plt.ylabel('Classification accuracy')
 plt.legend()
 plt.show()
 
-
 # Visualize the weights of the network
 plt.figure(5)
 show_net_weights(net)
-
 
 # Tune your hyperparameters
 #
@@ -259,7 +254,7 @@ show_net_weights(net)
 # **Explain your hyperparameter tuning process in the report.**
 
 
-best_net = None # store the best model into this
+best_net = None  # store the best model into this
 
 #################################################################################
 # TODO: Tune hyperparameters using the validation set. Store your best trained  #
@@ -276,7 +271,6 @@ best_net = None # store the best model into this
 # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
 
-
 pass
 
 # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
@@ -286,11 +280,9 @@ pass
 plt.figure(6)
 show_net_weights(best_net)
 
-
 # Run on the test set
 # When you are done experimenting, you should evaluate your final trained
 # network on the test set; you should get above 48%.
 
 test_acc = (best_net.predict(X_test) == y_test).mean()
 print('Test accuracy: ', test_acc)
-
