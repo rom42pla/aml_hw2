@@ -126,11 +126,8 @@ class TwoLayerNet(object):
         # guess is the array of values of the correct class in our scores
         guess = scores[np.arange(scores.shape[0]), y]
 
-        def J(g):
-            return (1 / N) * np.sum(-np.log(g)) + \
-                   reg * (np.linalg.norm(W1) ** 2 + np.linalg.norm(W2) ** 2)
-
-        loss = J(guess)
+        loss = (1 / N) * np.sum(-np.log(guess)) + \
+               reg * (np.linalg.norm(W1) ** 2 + np.linalg.norm(W2) ** 2)
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
@@ -144,10 +141,9 @@ class TwoLayerNet(object):
         ##############################################################################
 
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+        # initializing Kronecker deltas
         kronecker_deltas = np.zeros(shape=(N, C))
-
-        for i, pred in enumerate(y):
-            kronecker_deltas[i][pred] = 1
+        kronecker_deltas[np.arange(y.size), y] = 1
 
         scores = (1 / N) * (scores - kronecker_deltas)
 
