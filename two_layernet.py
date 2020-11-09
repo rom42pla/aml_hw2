@@ -207,7 +207,9 @@ class TwoLayerNet(object):
 
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-            pass
+            indices = np.arange(min(X.shape[0], batch_size))
+            np.random.shuffle(indices)
+            X_batch, y_batch = X[indices], y[indices]
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
@@ -224,7 +226,8 @@ class TwoLayerNet(object):
 
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-            pass
+            for param_name, value in grads.items():
+                self.params[param_name] = self.params[param_name] - learning_rate * grads[param_name]
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
@@ -271,8 +274,25 @@ class TwoLayerNet(object):
 
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        W1, b1 = self.params['W1'], self.params['b1']
+        W2, b2 = self.params['W2'], self.params['b2']
 
+        def relu(M):
+            result = M * (M >= 0)
+            return result
+
+        def softmax(M):
+            result = np.exp(M).T / np.sum(np.exp(M), axis=1)
+            return result
+
+        a1 = X
+        z2 = np.dot(a1, W1) + b1
+        a2 = relu(z2)
+        z3 = np.dot(a2, W2) + b2
+        a3 = softmax(z3)
+
+        scores = a3.T
+        y_pred = np.argmax(scores, axis=1)
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         return y_pred
