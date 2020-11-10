@@ -1,0 +1,623 @@
+{
+    "0": {
+        "layers_combination": [
+            93
+        ],
+        "accuracies": [
+            45.7,
+            47.3,
+            48.9,
+            51.3,
+            51.3,
+            51.6,
+            49.8,
+            52.4,
+            52.7,
+            51.8
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=93, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=93, out_features=10, bias=True)\n)",
+        "time": 84
+    },
+    "1": {
+        "layers_combination": [
+            28
+        ],
+        "accuracies": [
+            42.6,
+            44.8,
+            46.2,
+            46.4,
+            46.0,
+            48.2,
+            47.2,
+            48.6,
+            48.9,
+            48.6
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=28, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=28, out_features=10, bias=True)\n)",
+        "time": 88
+    },
+    "2": {
+        "layers_combination": [
+            97
+        ],
+        "accuracies": [
+            45.6,
+            50.0,
+            51.3,
+            50.0,
+            52.4,
+            50.8,
+            53.3,
+            51.6,
+            52.3,
+            52.8
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=97, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=97, out_features=10, bias=True)\n)",
+        "time": 87
+    },
+    "3": {
+        "layers_combination": [
+            93,
+            46
+        ],
+        "accuracies": [
+            39.7,
+            45.7,
+            49.4,
+            49.7,
+            51.5,
+            49.6,
+            51.8,
+            51.7,
+            50.8,
+            51.3
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=93, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=93, out_features=46, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=46, out_features=10, bias=True)\n)",
+        "time": 89
+    },
+    "4": {
+        "layers_combination": [
+            28,
+            93
+        ],
+        "accuracies": [
+            38.7,
+            43.1,
+            47.0,
+            46.9,
+            48.6,
+            48.7,
+            49.3,
+            51.0,
+            49.7,
+            50.4
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=28, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=28, out_features=93, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=93, out_features=10, bias=True)\n)",
+        "time": 88
+    },
+    "5": {
+        "layers_combination": [
+            97,
+            48
+        ],
+        "accuracies": [
+            44.0,
+            45.8,
+            48.4,
+            49.7,
+            51.2,
+            51.4,
+            50.4,
+            52.2,
+            50.2,
+            53.8
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=97, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=97, out_features=48, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=48, out_features=10, bias=True)\n)",
+        "time": 90
+    },
+    "6": {
+        "layers_combination": [
+            93,
+            46,
+            66
+        ],
+        "accuracies": [
+            7.8,
+            7.8,
+            7.8,
+            7.8,
+            8.7,
+            7.8,
+            9.8,
+            7.9,
+            7.9,
+            7.9
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=93, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=93, out_features=46, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=46, out_features=66, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=66, out_features=10, bias=True)\n)",
+        "time": 89
+    },
+    "7": {
+        "layers_combination": [
+            28,
+            93,
+            80
+        ],
+        "accuracies": [
+            11.3,
+            11.3,
+            10.5,
+            7.8,
+            7.8,
+            7.9,
+            7.9,
+            7.8,
+            7.8,
+            7.9
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=28, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=28, out_features=93, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=93, out_features=80, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=80, out_features=10, bias=True)\n)",
+        "time": 95
+    },
+    "8": {
+        "layers_combination": [
+            97,
+            48,
+            55
+        ],
+        "accuracies": [
+            7.8,
+            9.8,
+            7.8,
+            7.9,
+            7.8,
+            10.2,
+            7.9,
+            7.9,
+            7.9,
+            7.9
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=97, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=97, out_features=48, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=48, out_features=55, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=55, out_features=10, bias=True)\n)",
+        "time": 92
+    },
+    "9": {
+        "layers_combination": [
+            93,
+            46,
+            66,
+            78
+        ],
+        "accuracies": [
+            7.9,
+            8.7,
+            8.7,
+            7.9,
+            7.9,
+            8.7,
+            8.7,
+            8.7,
+            7.9,
+            7.9
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=93, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=93, out_features=46, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=46, out_features=66, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=66, out_features=78, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=78, out_features=10, bias=True)\n)",
+        "time": 92
+    },
+    "10": {
+        "layers_combination": [
+            28,
+            93,
+            80,
+            76
+        ],
+        "accuracies": [
+            10.7,
+            8.7,
+            9.8,
+            7.9,
+            7.9,
+            7.8,
+            7.8,
+            8.7,
+            7.8,
+            8.7
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=28, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=28, out_features=93, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=93, out_features=80, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=80, out_features=76, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=76, out_features=10, bias=True)\n)",
+        "time": 93
+    },
+    "11": {
+        "layers_combination": [
+            97,
+            48,
+            55,
+            57
+        ],
+        "accuracies": [
+            10.5,
+            10.5,
+            7.8,
+            7.9,
+            7.8,
+            7.9,
+            7.8,
+            7.8,
+            7.9,
+            7.9
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=97, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=97, out_features=48, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=48, out_features=55, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=55, out_features=57, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=57, out_features=10, bias=True)\n)",
+        "time": 90
+    },
+    "12": {
+        "layers_combination": [
+            93,
+            46,
+            66,
+            78,
+            82
+        ],
+        "accuracies": [
+            7.9,
+            7.9,
+            7.8,
+            7.8,
+            8.7,
+            7.9,
+            7.9,
+            7.9,
+            7.8,
+            7.8
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=93, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=93, out_features=46, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=46, out_features=66, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=66, out_features=78, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=78, out_features=82, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=82, out_features=10, bias=True)\n)",
+        "time": 93
+    },
+    "13": {
+        "layers_combination": [
+            28,
+            93,
+            80,
+            76,
+            97
+        ],
+        "accuracies": [
+            7.9,
+            7.9,
+            7.9,
+            7.8,
+            7.9,
+            7.8,
+            9.8,
+            10.5,
+            7.8,
+            7.9
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=28, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=28, out_features=93, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=93, out_features=80, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=80, out_features=76, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=76, out_features=97, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=97, out_features=10, bias=True)\n)",
+        "time": 89
+    },
+    "14": {
+        "layers_combination": [
+            97,
+            48,
+            55,
+            57,
+            49
+        ],
+        "accuracies": [
+            8.7,
+            7.9,
+            7.9,
+            7.9,
+            7.9,
+            7.8,
+            7.9,
+            7.9,
+            7.9,
+            7.9
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=97, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=97, out_features=48, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=48, out_features=55, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=55, out_features=57, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=57, out_features=49, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=49, out_features=10, bias=True)\n)",
+        "time": 89
+    },
+    "15": {
+        "layers_combination": [
+            93,
+            46,
+            66,
+            78,
+            82,
+            76
+        ],
+        "accuracies": [
+            7.9,
+            7.9,
+            9.8,
+            7.9,
+            7.9,
+            7.9,
+            7.9,
+            7.9,
+            7.9,
+            7.8
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=93, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=93, out_features=46, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=46, out_features=66, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=66, out_features=78, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=78, out_features=82, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=82, out_features=76, bias=True)\n  (12): ReLU()\n  (13): Linear(in_features=76, out_features=10, bias=True)\n)",
+        "time": 90
+    },
+    "16": {
+        "layers_combination": [
+            28,
+            93,
+            80,
+            76,
+            97,
+            84
+        ],
+        "accuracies": [
+            10.2,
+            10.2,
+            7.9,
+            9.8,
+            7.8,
+            7.8,
+            8.7,
+            10.2,
+            10.7,
+            7.9
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=28, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=28, out_features=93, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=93, out_features=80, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=80, out_features=76, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=76, out_features=97, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=97, out_features=84, bias=True)\n  (12): ReLU()\n  (13): Linear(in_features=84, out_features=10, bias=True)\n)",
+        "time": 88
+    },
+    "17": {
+        "layers_combination": [
+            97,
+            48,
+            55,
+            57,
+            49,
+            54
+        ],
+        "accuracies": [
+            7.8,
+            10.2,
+            10.2,
+            7.8,
+            7.8,
+            8.7,
+            7.9,
+            7.8,
+            7.8,
+            7.8
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=97, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=97, out_features=48, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=48, out_features=55, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=55, out_features=57, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=57, out_features=49, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=49, out_features=54, bias=True)\n  (12): ReLU()\n  (13): Linear(in_features=54, out_features=10, bias=True)\n)",
+        "time": 89
+    },
+    "18": {
+        "layers_combination": [
+            93,
+            46,
+            66,
+            78,
+            82,
+            76,
+            22
+        ],
+        "accuracies": [
+            7.9,
+            7.9,
+            7.9,
+            7.8,
+            7.9,
+            7.8,
+            7.8,
+            7.8,
+            7.9,
+            7.9
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=93, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=93, out_features=46, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=46, out_features=66, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=66, out_features=78, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=78, out_features=82, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=82, out_features=76, bias=True)\n  (12): ReLU()\n  (13): Linear(in_features=76, out_features=22, bias=True)\n  (14): ReLU()\n  (15): Linear(in_features=22, out_features=10, bias=True)\n)",
+        "time": 88
+    },
+    "19": {
+        "layers_combination": [
+            28,
+            93,
+            80,
+            76,
+            97,
+            84,
+            55
+        ],
+        "accuracies": [
+            7.9,
+            7.9,
+            8.7,
+            7.9,
+            7.8,
+            8.7,
+            8.7,
+            7.8,
+            7.8,
+            8.7
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=28, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=28, out_features=93, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=93, out_features=80, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=80, out_features=76, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=76, out_features=97, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=97, out_features=84, bias=True)\n  (12): ReLU()\n  (13): Linear(in_features=84, out_features=55, bias=True)\n  (14): ReLU()\n  (15): Linear(in_features=55, out_features=10, bias=True)\n)",
+        "time": 88
+    },
+    "20": {
+        "layers_combination": [
+            97,
+            48,
+            55,
+            57,
+            49,
+            54,
+            87
+        ],
+        "accuracies": [
+            9.8,
+            7.9,
+            7.8,
+            9.8,
+            7.8,
+            7.8,
+            7.8,
+            7.8,
+            7.9,
+            7.9
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=97, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=97, out_features=48, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=48, out_features=55, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=55, out_features=57, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=57, out_features=49, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=49, out_features=54, bias=True)\n  (12): ReLU()\n  (13): Linear(in_features=54, out_features=87, bias=True)\n  (14): ReLU()\n  (15): Linear(in_features=87, out_features=10, bias=True)\n)",
+        "time": 87
+    },
+    "21": {
+        "layers_combination": [
+            93,
+            46,
+            66,
+            78,
+            82,
+            76,
+            22,
+            91
+        ],
+        "accuracies": [
+            7.8,
+            7.8,
+            7.8,
+            7.8,
+            7.9,
+            11.2,
+            7.9,
+            7.9,
+            7.9,
+            7.8
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=93, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=93, out_features=46, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=46, out_features=66, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=66, out_features=78, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=78, out_features=82, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=82, out_features=76, bias=True)\n  (12): ReLU()\n  (13): Linear(in_features=76, out_features=22, bias=True)\n  (14): ReLU()\n  (15): Linear(in_features=22, out_features=91, bias=True)\n  (16): ReLU()\n  (17): Linear(in_features=91, out_features=10, bias=True)\n)",
+        "time": 88
+    },
+    "22": {
+        "layers_combination": [
+            28,
+            93,
+            80,
+            76,
+            97,
+            84,
+            55,
+            28
+        ],
+        "accuracies": [
+            10.2,
+            7.9,
+            7.9,
+            7.8,
+            7.8,
+            7.8,
+            9.8,
+            7.8,
+            7.8,
+            8.7
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=28, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=28, out_features=93, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=93, out_features=80, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=80, out_features=76, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=76, out_features=97, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=97, out_features=84, bias=True)\n  (12): ReLU()\n  (13): Linear(in_features=84, out_features=55, bias=True)\n  (14): ReLU()\n  (15): Linear(in_features=55, out_features=28, bias=True)\n  (16): ReLU()\n  (17): Linear(in_features=28, out_features=10, bias=True)\n)",
+        "time": 87
+    },
+    "23": {
+        "layers_combination": [
+            97,
+            48,
+            55,
+            57,
+            49,
+            54,
+            87,
+            53
+        ],
+        "accuracies": [
+            7.8,
+            7.9,
+            7.8,
+            9.8,
+            7.8,
+            7.9,
+            10.2,
+            7.9,
+            7.9,
+            7.9
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=97, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=97, out_features=48, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=48, out_features=55, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=55, out_features=57, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=57, out_features=49, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=49, out_features=54, bias=True)\n  (12): ReLU()\n  (13): Linear(in_features=54, out_features=87, bias=True)\n  (14): ReLU()\n  (15): Linear(in_features=87, out_features=53, bias=True)\n  (16): ReLU()\n  (17): Linear(in_features=53, out_features=10, bias=True)\n)",
+        "time": 88
+    },
+    "24": {
+        "layers_combination": [
+            93,
+            46,
+            66,
+            78,
+            82,
+            76,
+            22,
+            91,
+            55
+        ],
+        "accuracies": [
+            7.9,
+            7.9,
+            7.9,
+            7.8,
+            8.7,
+            7.8,
+            7.8,
+            7.8,
+            7.8,
+            7.8
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=93, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=93, out_features=46, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=46, out_features=66, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=66, out_features=78, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=78, out_features=82, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=82, out_features=76, bias=True)\n  (12): ReLU()\n  (13): Linear(in_features=76, out_features=22, bias=True)\n  (14): ReLU()\n  (15): Linear(in_features=22, out_features=91, bias=True)\n  (16): ReLU()\n  (17): Linear(in_features=91, out_features=55, bias=True)\n  (18): ReLU()\n  (19): Linear(in_features=55, out_features=10, bias=True)\n)",
+        "time": 89
+    },
+    "25": {
+        "layers_combination": [
+            28,
+            93,
+            80,
+            76,
+            97,
+            84,
+            55,
+            28,
+            44
+        ],
+        "accuracies": [
+            7.9,
+            7.9,
+            7.8,
+            7.8,
+            9.8,
+            7.9,
+            7.8,
+            7.9,
+            7.9,
+            7.9
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=28, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=28, out_features=93, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=93, out_features=80, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=80, out_features=76, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=76, out_features=97, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=97, out_features=84, bias=True)\n  (12): ReLU()\n  (13): Linear(in_features=84, out_features=55, bias=True)\n  (14): ReLU()\n  (15): Linear(in_features=55, out_features=28, bias=True)\n  (16): ReLU()\n  (17): Linear(in_features=28, out_features=44, bias=True)\n  (18): ReLU()\n  (19): Linear(in_features=44, out_features=10, bias=True)\n)",
+        "time": 89
+    },
+    "26": {
+        "layers_combination": [
+            97,
+            48,
+            55,
+            57,
+            49,
+            54,
+            87,
+            53,
+            67
+        ],
+        "accuracies": [
+            7.8,
+            7.8,
+            7.8,
+            7.9,
+            7.8,
+            7.8,
+            7.8,
+            7.8,
+            7.8,
+            7.8
+        ],
+        "model": "Sequential(\n  (0): BatchNorm1d(3072, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n  (1): Linear(in_features=3072, out_features=97, bias=True)\n  (2): ReLU()\n  (3): Linear(in_features=97, out_features=48, bias=True)\n  (4): ReLU()\n  (5): Linear(in_features=48, out_features=55, bias=True)\n  (6): ReLU()\n  (7): Linear(in_features=55, out_features=57, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=57, out_features=49, bias=True)\n  (10): ReLU()\n  (11): Linear(in_features=49, out_features=54, bias=True)\n  (12): ReLU()\n  (13): Linear(in_features=54, out_features=87, bias=True)\n  (14): ReLU()\n  (15): Linear(in_features=87, out_features=53, bias=True)\n  (16): ReLU()\n  (17): Linear(in_features=53, out_features=67, bias=True)\n  (18): ReLU()\n  (19): Linear(in_features=67, out_features=10, bias=True)\n)",
+        "time": 89
+    }
+}
