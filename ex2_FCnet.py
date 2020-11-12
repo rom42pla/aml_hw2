@@ -269,9 +269,81 @@ best_net = None  # store the best model into this
 #################################################################################
 
 # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+import json
+import random
+from pprint import pprint
+from itertools import product
+from sklearn import preprocessing
+from sklearn.decomposition import PCA
 
+# hyperparameters' combinations
+combinations_cap = 50
+hidden_sizes = np.linspace(80, 220, num=20, dtype=int)
+learning_rates = np.linspace(1e-3, 1e-4, num=10, endpoint=False, dtype=float)
+learning_rate_decays = {0.95}
+regs = np.linspace(0.1, 0.4, num=10, dtype=float)
+nums_iters = np.linspace(500, 3000, num=10, dtype=int)
+batch_sizes = np.linspace(3000, 500, num=10, dtype=int)
+pcas = {True, False}
+tests_json_filepath, tests_history, best_test = "numpy_accuracies.json", [], {}
 
-pass
+combinations = list(product(hidden_sizes, learning_rates, learning_rate_decays, regs, nums_iters, batch_sizes, pcas))
+random.shuffle(combinations)
+
+# preprocessing
+pca_input_size = 300
+pca = PCA(pca_input_size, svd_solver="auto")
+pca.fit(X_train)
+X_train_pca, X_val_pca, X_test_pca = pca.transform(X_train), pca.transform(X_val), pca.transform(X_test)
+
+print(f"Trying {combinations_cap} combinations")
+for combination in combinations[:combinations_cap]:
+    hidden_size, learning_rate, learning_rate_decay, reg, num_iters, batch_size, pca = combination
+    hyperparams = {
+        "hidden_size": hidden_size,
+        "learning_rates": learning_rate,
+        "learning_rate_decay": learning_rate_decay,
+        "reg": reg,
+        "num_iters": num_iters,
+        "batch_size": batch_size,
+        "pca": pca
+    }
+    test = {}
+    net = TwoLayerNet(input_size if not pca else pca_input_size, hidden_size, num_classes)
+
+    stats = net.train(X_train if not pca else X_train_pca, y_train, X_val if not pca else X_val_pca, y_val,
+                      num_iters=num_iters, batch_size=batch_size,
+                      learning_rate=learning_rate, learning_rate_decay=learning_rate_decay,
+                      reg=reg, verbose=False)
+    accuracies = {
+        "train": (net.predict(X_train if not pca else X_train_pca) == y_train).mean(),
+        "validation": (net.predict(X_val if not pca else X_val_pca) == y_val).mean()
+    }
+    test = {"hyperparameters": hyperparams,
+            "accuracies": accuracies}
+    tests_history += test
+    if best_test == {} or best_test["accuracies"]["validation"] < accuracies["validation"]:
+        pprint(f"######### Found new best hyperparameters choice!")
+        best_test, best_net = test, net
+        plt.figure(3)
+        plt.subplot(2, 1, 1)
+        plt.plot(stats['loss_history'])
+        plt.title('Loss history')
+        plt.xlabel('Iteration')
+        plt.ylabel('Loss')
+        plt.subplot(2, 1, 2)
+        plt.plot(stats['train_acc_history'], label='train')
+        plt.plot(stats['val_acc_history'], label='val')
+        plt.title('Classification accuracy history')
+        plt.xlabel('Epoch')
+        plt.ylabel('Classification accuracy')
+        plt.legend()
+        plt.show()
+    pprint(test)
+
+    # saves results to a json
+    with open(tests_json_filepath, 'w') as fp:
+        json.dump(tests_history, fp, indent=4)
 
 # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
@@ -284,5 +356,5 @@ show_net_weights(best_net)
 # When you are done experimenting, you should evaluate your final trained
 # network on the test set; you should get above 48%.
 
-test_acc = (best_net.predict(X_test) == y_test).mean()
+test_acc = (best_net.predict(X_test if not pca else X_test_pca) == y_test).mean()
 print('Test accuracy: ', test_acc)
