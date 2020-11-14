@@ -270,35 +270,29 @@ best_net = None  # store the best model into this
 
 # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 import json
-import random
 from pprint import pprint
 from itertools import product
 from sklearn import preprocessing
 from sklearn.decomposition import PCA
 
 # hyperparameters' combinations
-combinations_cap = 50
-hidden_sizes = np.linspace(80, 220, num=20, dtype=int)
-learning_rates = np.linspace(1e-3, 1e-4, num=10, endpoint=False, dtype=float)
-learning_rate_decays = {0.95}
-regs = np.linspace(0.1, 0.4, num=10, dtype=float)
-nums_iters = np.linspace(500, 3000, num=10, dtype=int)
-batch_sizes = np.linspace(3000, 500, num=10, dtype=int)
-pcas = {True, False}
+combinations_cap = 100
+hidden_sizes = np.linspace(80, 130, num=11, dtype=int)
+learning_rates = np.linspace(3.5e-3, 4.2e-3, num=21, endpoint=False, dtype=float)
+learning_rate_decays = {0.99, 0.98}
+regs = np.linspace(1e-5, 2e-3, num=40, dtype=float)
+nums_iters = np.linspace(500, 1100, num=7, dtype=int)
+batch_sizes = np.linspace(15000, 25000, num=14, dtype=int)
+momentum = {True, False}
 tests_json_filepath, tests_history, best_test = "numpy_accuracies.json", [], {}
 
-combinations = list(product(hidden_sizes, learning_rates, learning_rate_decays, regs, nums_iters, batch_sizes, pcas))
-random.shuffle(combinations)
-
-# preprocessing
-pca_input_size = 300
-pca = PCA(pca_input_size, svd_solver="auto")
-pca.fit(X_train)
-X_train_pca, X_val_pca, X_test_pca = pca.transform(X_train), pca.transform(X_val), pca.transform(X_test)
+combinations = list(product(hidden_sizes, learning_rates, learning_rate_decays, regs, nums_iters, batch_sizes, momentum))
+np.random.shuffle(combinations)
 
 print(f"Trying {combinations_cap} combinations")
 for combination in combinations[:combinations_cap]:
-    hidden_size, learning_rate, learning_rate_decay, reg, num_iters, batch_size, pca = combination
+    hidden_size, learning_rate, learning_rate_decay, reg, num_iters, batch_size, momentum = combination
+
     hyperparams = {
         "hidden_size": hidden_size,
         "learning_rates": learning_rate,
@@ -306,18 +300,18 @@ for combination in combinations[:combinations_cap]:
         "reg": reg,
         "num_iters": num_iters,
         "batch_size": batch_size,
-        "pca": pca
+        "momentum" : momentum
     }
     test = {}
-    net = TwoLayerNet(input_size if not pca else pca_input_size, hidden_size, num_classes)
+    net = TwoLayerNet(input_size, hidden_size, num_classes, momentum)
 
-    stats = net.train(X_train if not pca else X_train_pca, y_train, X_val if not pca else X_val_pca, y_val,
+    stats = net.train(X_train, y_train, X_val , y_val,
                       num_iters=num_iters, batch_size=batch_size,
                       learning_rate=learning_rate, learning_rate_decay=learning_rate_decay,
-                      reg=reg, verbose=False)
+                      reg=reg, verbose=True)
     accuracies = {
-        "train": (net.predict(X_train if not pca else X_train_pca) == y_train).mean(),
-        "validation": (net.predict(X_val if not pca else X_val_pca) == y_val).mean()
+        "train": (net.predict(X_train) == y_train).mean(),
+        "validation": (net.predict(X_val) == y_val).mean()
     }
     test = {"hyperparameters": hyperparams,
             "accuracies": accuracies}
@@ -356,5 +350,5 @@ show_net_weights(best_net)
 # When you are done experimenting, you should evaluate your final trained
 # network on the test set; you should get above 48%.
 
-test_acc = (best_net.predict(X_test if not pca else X_test_pca) == y_test).mean()
+test_acc = (best_net.predict(X_test) == y_test).mean()
 print('Test accuracy: ', test_acc)

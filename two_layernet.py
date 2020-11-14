@@ -10,7 +10,6 @@ try:
 except NameError:
     xrange = range  # Python 3
 
-
 class TwoLayerNet(object):
     """
     A two-layer fully-connected neural network. The net has an input dimension of
@@ -26,7 +25,7 @@ class TwoLayerNet(object):
     The outputs of the second fully-connected layer are the scores for each class.
     """
 
-    def __init__(self, input_size, hidden_size, output_size, std=1e-4):
+    def __init__(self, input_size, hidden_size, output_size, momentum=False, std=1e-4):
         """
         Initialize the model. Weights are initialized to small random values and
         biases are initialized to zero. Weights and biases are stored in the
@@ -48,6 +47,9 @@ class TwoLayerNet(object):
         self.params['b1'] = np.zeros(hidden_size)
         self.params['W2'] = std * np.random.randn(hidden_size, output_size)
         self.params['b2'] = np.zeros(output_size)
+        self.momentum = momentum
+        if self.momentum:
+            self.grad = None
 
     def loss(self, X, y=None, reg=0.0):
         """
@@ -93,7 +95,10 @@ class TwoLayerNet(object):
             return result
 
         def softmax(M):
-            result = np.exp(M).T / np.sum(np.exp(M), axis=1)
+            # subtracted max to avoid exponential overflowing
+            e_M = np.exp(M - np.max(M, axis=1).reshape((M.shape[0], 1)))
+            result = e_M.T / np.sum(e_M, axis=1)
+
             return result
 
         a1 = X
@@ -125,6 +130,7 @@ class TwoLayerNet(object):
         N, C = scores.shape
         # guess is the array of values of the correct class in our scores
         guess = scores[np.arange(scores.shape[0]), y]
+        guess[guess == 0] = 1e-8
 
         loss = (1 / N) * np.sum(-np.log(guess)) + \
                reg * (np.linalg.norm(W1) ** 2 + np.linalg.norm(W2) ** 2)
@@ -193,6 +199,7 @@ class TwoLayerNet(object):
         val_acc_history = []
 
         for it in range(num_iters):
+
             X_batch = X
             y_batch = y
 
@@ -221,9 +228,18 @@ class TwoLayerNet(object):
             #########################################################################
 
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+            if self.momentum:
+                if self.grad:
+                    for param_name, value in grads.items():
+                        self.params[param_name] = self.params[param_name] - learning_rate * grads[param_name] - 0.02 * learning_rate * self.grad[param_name]
+                self.grad = grads
+            else:
+                for param_name, value in grads.items():
+                    self.params[param_name] = self.params[param_name] - learning_rate * grads[param_name]
 
-            for param_name, value in grads.items():
-                self.params[param_name] = self.params[param_name] - learning_rate * grads[param_name]
+
+            # if it > 2 and loss_history[-2] - loss_history[-1] <= 1e-12:
+            #     break
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
@@ -278,7 +294,9 @@ class TwoLayerNet(object):
             return result
 
         def softmax(M):
-            result = np.exp(M).T / np.sum(np.exp(M), axis=1)
+            e_M = np.exp(M - np.max(M, axis=1).reshape((M.shape[0], 1)))
+            result = e_M.T / np.sum(e_M, axis=1)
+            #result = np.exp(M).T / np.sum(np.exp(M), axis=1)
             return result
 
         a1 = X
