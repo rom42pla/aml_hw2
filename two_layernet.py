@@ -25,7 +25,7 @@ class TwoLayerNet(object):
     The outputs of the second fully-connected layer are the scores for each class.
     """
 
-    def __init__(self, input_size, hidden_size, output_size, momentum=False, std=1e-4):
+    def __init__(self, input_size, hidden_size, output_size, momentum=False, alpha=0.2, std=1e-4):
         """
         Initialize the model. Weights are initialized to small random values and
         biases are initialized to zero. Weights and biases are stored in the
@@ -50,7 +50,7 @@ class TwoLayerNet(object):
         self.momentum = momentum
         if self.momentum:
             self.grad = None
-
+            self.alpha = alpha
     def loss(self, X, y=None, reg=0.0):
         """
         Compute the loss and gradients for a two-layer fully connected neural
@@ -231,15 +231,14 @@ class TwoLayerNet(object):
             if self.momentum:
                 if self.grad:
                     for param_name, value in grads.items():
-                        self.params[param_name] = self.params[param_name] - learning_rate * grads[param_name] - 0.02 * learning_rate * self.grad[param_name]
+                        self.params[param_name] = self.params[param_name] - learning_rate * grads[param_name] - \
+                                                  self.alpha * learning_rate * self.grad[param_name]
                 self.grad = grads
+
             else:
                 for param_name, value in grads.items():
                     self.params[param_name] = self.params[param_name] - learning_rate * grads[param_name]
 
-
-            # if it > 2 and loss_history[-2] - loss_history[-1] <= 1e-12:
-            #     break
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
