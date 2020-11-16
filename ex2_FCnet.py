@@ -303,11 +303,11 @@ X_train_pca, X_val_pca, X_test_pca = pca.transform(X_train), pca.transform(X_val
 best_hyperparams = {'batch_size': 22000,
                     'hidden_size': 135,
                     'learning_rate_decay': 0.99,
-                    'learning_rate': 0.0048,
+                    'learning_rate': 0.004786,
                     'momentum': True,
                     'num_iters': 1100,
                     'pca': True,
-                    'reg': 0.0018}
+                    'reg': 0.001847}
 
 if not best_hyperparams:  # RandomSearch
     print(f"Trying {combinations_cap} combinations")
