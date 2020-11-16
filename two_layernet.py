@@ -48,6 +48,9 @@ class TwoLayerNet(object):
         self.params['W2'] = std * np.random.randn(hidden_size, output_size)
         self.params['b2'] = np.zeros(output_size)
         self.momentum = momentum
+        
+        # momentum fixed at value 0.2, attribute self.grad is needed to store the gradient of the previous iteration in order to 
+        # update the weights with momentum coming from the previous gradient
         if self.momentum:
             self.grad = None
             self.alpha = alpha
@@ -228,6 +231,8 @@ class TwoLayerNet(object):
             #########################################################################
 
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+            
+            #weights update with current gradient and momentum coming from previous iteration gradient 
             if self.momentum:
                 if self.grad:
                     for param_name, value in grads.items():

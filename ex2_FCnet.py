@@ -10,6 +10,7 @@ from gradient_check import eval_numerical_gradient
 from data_utils import get_CIFAR10_data
 from vis_utils import visualize_grid
 
+
 # -------------------------- * End of setup *---------------------------------------
 
 # -------------------------------------------------------
@@ -185,7 +186,7 @@ stats = net.train(X_train, y_train, X_val, y_val,
                   learning_rate=1e-4, learning_rate_decay=0.95,
                   reg=0.25, verbose=True)
 
-# Predict on the validation set
+# Predict on the validation set 
 val_acc = (net.predict(X_val) == y_val).mean()
 print('Validation accuracy: ', val_acc)
 
@@ -271,8 +272,9 @@ best_net = None  # store the best model into this
 import json
 from pprint import pprint
 from itertools import product
-from sklearn import preprocessing
 from sklearn.decomposition import PCA
+
+best_hyperparams = None
 
 # hyperparameters' combinations
 combinations_cap = 100
@@ -282,11 +284,12 @@ learning_rate_decays = {0.99, 0.98}
 regs = np.linspace(1e-5, 2e-3, num=40, dtype=float)
 nums_iters = np.linspace(700, 1300, num=7, dtype=int)
 batch_sizes = np.linspace(15000, 25000, num=21, dtype=int)
-pcas= {True}
+pcas = {True}
 momentum = {True}
 tests_json_filepath, tests_history, best_test = "numpy_accuracies.json", [], {}
 
-combinations = list(product(hidden_sizes, learning_rates, learning_rate_decays, regs, nums_iters, batch_sizes, pcas, momentum))
+combinations = list(
+    product(hidden_sizes, learning_rates, learning_rate_decays, regs, nums_iters, batch_sizes, pcas, momentum))
 np.random.shuffle(combinations)
 
 pca_input_size = 1200
@@ -294,56 +297,107 @@ pca = PCA(pca_input_size, svd_solver="auto")
 pca.fit(X_train)
 X_train_pca, X_val_pca, X_test_pca = pca.transform(X_train), pca.transform(X_val), pca.transform(X_test)
 
-print(f"Trying {combinations_cap} combinations")
-for combination in combinations[:combinations_cap]:
-    hidden_size, learning_rate, learning_rate_decay, reg, num_iters, batch_size, pca, momentum = combination
+# These are the best hyperparameters found with a previous round of random search, with learning rate and regularization
+# rounded up to the second significant figure
 
-    hyperparams = {
-        "hidden_size": hidden_size,
-        "learning_rates": learning_rate,
-        "learning_rate_decay": learning_rate_decay,
-        "reg": reg,
-        "num_iters": num_iters,
-        "batch_size": batch_size,
-        "pca": pca,
-        "momentum": momentum
-    }
-    test = {}
-    net = TwoLayerNet(input_size if not pca else pca_input_size, hidden_size, num_classes, momentum)
+best_hyperparams = {'batch_size': 22000,
+                    'hidden_size': 135,
+                    'learning_rate_decay': 0.99,
+                    'learning_rate': 0.004786,
+                    'momentum': True,
+                    'num_iters': 1100,
+                    'pca': True,
+                    'reg': 0.001847}
 
-    stats = net.train(X_train if not pca else X_train_pca, y_train, X_val if not pca else X_val_pca, y_val,
-                      num_iters=num_iters, batch_size=batch_size,
-                      learning_rate=learning_rate, learning_rate_decay=learning_rate_decay,
-                      reg=reg, verbose=True)
+if not best_hyperparams:  # RandomSearch
+    print(f"Trying {combinations_cap} combinations")
+
+    for combination in combinations[:combinations_cap]:
+        hidden_size, learning_rate, learning_rate_decay, reg, num_iters, batch_size, pca, momentum = combination
+
+        hyperparams = {
+            "hidden_size": hidden_size,
+            "learning_rate": learning_rate,
+            "learning_rate_decay": learning_rate_decay,
+            "reg": reg,
+            "num_iters": num_iters,
+            "batch_size": batch_size,
+            "pca": pca,
+            "momentum": momentum
+        }
+        test = {}
+        net = TwoLayerNet(input_size if not pca else pca_input_size, hidden_size, num_classes, momentum)
+
+        stats = net.train(X_train if not pca else X_train_pca, y_train, X_val if not pca else X_val_pca, y_val,
+                          num_iters=num_iters, batch_size=batch_size,
+                          learning_rate=learning_rate, learning_rate_decay=learning_rate_decay,
+                          reg=reg, verbose=True)
+        accuracies = {
+            "train": (net.predict(X_train if not pca else X_train_pca) == y_train).mean(),
+            "validation": (net.predict(X_val if not pca else X_val_pca) == y_val).mean()
+        }
+        test = {"hyperparameters": hyperparams,
+                "accuracies": accuracies}
+        tests_history += test
+        if best_test == {} or best_test["accuracies"]["validation"] < accuracies["validation"]:
+            pprint(f"######### Found new best hyperparameters choice!")
+            best_hyperparams = hyperparams
+            best_test, best_net = test, net
+            plt.figure(3)
+            plt.subplot(2, 1, 1)
+            plt.plot(stats['loss_history'])
+            plt.title('Loss history')
+            plt.xlabel('Iteration')
+            plt.ylabel('Loss')
+            plt.subplot(2, 1, 2)
+            plt.plot(stats['train_acc_history'], label='train')
+            plt.plot(stats['val_acc_history'], label='val')
+            plt.title('Classification accuracy history')
+            plt.xlabel('Epoch')
+            plt.ylabel('Classification accuracy')
+            plt.legend()
+            plt.show()
+        pprint(test)
+
+        # saves results to a json
+        with open(tests_json_filepath, 'w') as fp:
+            json.dump(tests_history, fp, indent=4)
+
+else:
+    # training with the best hyperparameters, getting predictions and plotting meaningful statistics only for the
+    # best network that came out from the RandomSearch (with learning rate and regularization rounded)
+
+    hidden_size, learning_rate, learning_rate_decay, reg, num_iters, batch_size, pca, momentum = \
+        [best_hyperparams[key] for key in
+         ['hidden_size', 'learning_rate', 'learning_rate_decay', 'reg', 'num_iters', 'batch_size', 'pca', 'momentum']]
+
+    best_net = TwoLayerNet(input_size if not pca else pca_input_size, hidden_size, num_classes, momentum)
+    stats = best_net.train(X_train if not pca else X_train_pca, y_train, X_val if not pca else X_val_pca, y_val,
+                           num_iters=num_iters, batch_size=batch_size,
+                           learning_rate=learning_rate, learning_rate_decay=learning_rate_decay,
+                           reg=reg, verbose=True)
+
     accuracies = {
-        "train": (net.predict(X_train if not pca else X_train_pca) == y_train).mean(),
-        "validation": (net.predict(X_val if not pca else X_val_pca) == y_val).mean()
+        "train": (best_net.predict(X_train if not pca else X_train_pca) == y_train).mean(),
+        "validation": (best_net.predict(X_val if not pca else X_val_pca) == y_val).mean()
     }
-    test = {"hyperparameters": hyperparams,
-            "accuracies": accuracies}
-    tests_history += test
-    if best_test == {} or best_test["accuracies"]["validation"] < accuracies["validation"]:
-        pprint(f"######### Found new best hyperparameters choice!")
-        best_test, best_net = test, net
-        plt.figure(3)
-        plt.subplot(2, 1, 1)
-        plt.plot(stats['loss_history'])
-        plt.title('Loss history')
-        plt.xlabel('Iteration')
-        plt.ylabel('Loss')
-        plt.subplot(2, 1, 2)
-        plt.plot(stats['train_acc_history'], label='train')
-        plt.plot(stats['val_acc_history'], label='val')
-        plt.title('Classification accuracy history')
-        plt.xlabel('Epoch')
-        plt.ylabel('Classification accuracy')
-        plt.legend()
-        plt.show()
-    pprint(test)
-
-    # saves results to a json
-    with open(tests_json_filepath, 'w') as fp:
-        json.dump(tests_history, fp, indent=4)
+    best_test = {"hyperparameters": best_hyperparams,
+                 "accuracies": accuracies}
+    plt.figure(3)
+    plt.subplot(2, 1, 1)
+    plt.plot(stats['loss_history'])
+    plt.title('Loss history')
+    plt.xlabel('Iteration')
+    plt.ylabel('Loss')
+    plt.subplot(2, 1, 2)
+    plt.plot(stats['train_acc_history'], label='train')
+    plt.plot(stats['val_acc_history'], label='val')
+    plt.title('Classification accuracy history')
+    plt.xlabel('Epoch')
+    plt.ylabel('Classification accuracy')
+    plt.legend()
+    plt.show()
+    pprint(best_test)
 
 # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
