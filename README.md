@@ -17,7 +17,7 @@ Check the [text](https://github.com/rom42pla/aml_hw2/blob/main/text.pdf) for mor
 ## How to check our results?
 Some questions that requires particular explanations are shown in a brief [report](https://github.com/rom42pla/aml_hw2/blob/main/report.pdf).
 
-If you prefer to run the code on your device follow these steps instead:
+Follow these steps:
 
 - clone this repo to your device: `git clone https://github.com/rom42pla/aml_hw2.git; cd aml_hw2`
 - if you don't have the `datasets` folder, download them with `bash get_datasets.sh`
